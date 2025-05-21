@@ -1,0 +1,182 @@
+========================================= MySQL & SQL ===========================================
+
+1. What is SQL?
+
+Before Databases
+- People used Notepad, Excel, or Word to store data (called File Management System or FMS).
+- This was hard to manage and easy to mess up.
+===================================================================================================
+DBMS – Database Management System
+- Stores data in one or few tables.
+- Used for small projects.
+- Examples: MS Access, FoxPro, dBase.
+====================================================================================================
+RDBMS – Relational Database Management System
+- Stores data in many related tables.
+- Data is better organized and safer.
+- Examples: MySQL, Oracle, SQL Server, PostgreSQL.
+====================================================================================================
+Big Data & NoSQL
+- For very large data: use Hadoop or NoSQL (like MongoDB).
+====================================================================================================
+2. Basic Terms
+
+Database
+- A place to store data in a structured way.
+
+SQL (Structured Query Language)
+- Language used to Add, Change, Delete, or View data in databases.
+====================================================================================================
+3. How It Works: Client & Server
+
+Server
+- A powerful computer that stores the database.
+- Needs more memory and power.
+
+Client
+- A tool to send SQL commands to the server.
+- Needs less memory.
+
+Types of Clients
+1. GUI (Graphical User Interface): MySQL Workbench, SSMS, DBeaver, PgAdmin
+  - - Output- Text, Graph, Chart format
+
+2. CLI (Command Line Interface): MySQL CLI, psql
+  -- Output- Text
+=====================================================================================================
+4. Types of SQL Commands
+
+DDL – Data Definition Language --> Make or change tables: CREATE, ALTER, DROP, TRUNCATE, RENAME
+DML – Data Manipulation Language--> Work with data: INSERT, UPDATE, DELETE
+DQL – Data Query Language --> Get data: SELECT
+TCL – Transaction Control Language--> Save or undo changes: COMMIT, ROLLBACK, SAVEPOINT
+DCL – Data Control Language --> Give or remove access: GRANT, REVOKE
+======================================================================================================
+5. SQL Data Types
+
+Numbers: TINYINT, SMALLINT, INT, BIGINT, FLOAT, DOUBLE
+
+-Use TINYINT/SMALLINT for flags, status codes, or small counts.
+
+-Use INT for general numeric IDs and values.
+
+-Use BIGINT when values can exceed INT (e.g., high-frequency logging IDs).
+
+-Use FLOAT when memory is tight and precision is not critical.
+
+-Use DOUBLE when precision matters (e.g., scientific or financial apps).
+
+=====================================================================================================
+
+Text: CHAR(n), VARCHAR(n), TEXT, BLOB, Medium Text, Long Text, Medium Blob, long Blob 
+
+-CHAR is fixed-length — if you store shorter strings, MySQL pads with spaces to the defined length.
+
+-VARCHAR stores variable-length strings efficiently with a length prefix.
+
+-TEXT and BLOB types are stored outside the table’s row storage if too large.
+
+-TEXT types are for textual data, BLOB types are for binary data (e.g., images, encrypted content).
+
+-Choosing the right type affects performance, storage, and functionality (e.g., indexes on TEXT columns have length limits).
+
+=====================================================================================================
+Dates: DATE (YYYY-MM-DD), DATETIME (YYYY-MM-DD HH:MM:SS), TIMESTAMP
+DATE
+-Stores only the date part (year, month, day).
+-Example: '2025-05-21'
+
+-DATETIME
+-Stores both date and time parts.
+-Example: '2025-05-21 15:30:45'
+-It stores the literal date/time without timezone conversion.
+
+-TIMESTAMP
+-Also stores date and time, but it represents the number of seconds since Unix epoch (1970-01-01 00:00:00 UTC).
+-When inserting, MySQL converts from your session’s time zone to UTC internally, and when retrieving, it converts back to your session’s time zone.
+-Example: '2025-05-21 15:30:45'
+-Useful for tracking events with timezone awareness (like last update time).
+===========================================================================================================
+6. Creating a Database and Table in MySQL
+
+-- Create the database
+CREATE DATABASE Schooldb;
+
+-- Use the created database
+USE Schooldb;
+
+-- Create the students table
+CREATE TABLE students (
+    Student_ID INT,
+    Name VARCHAR(50),
+    Age INT,
+    Grade CHAR(1)
+);
+
+-- Check the structure of the table
+DESCRIBE students;
+==============================================================
+
+====================Inserting Data and SELECT Statement==========================
+
+-- Insert records into the students table
+INSERT INTO students (Student_ID, Name, Age, Grade) 
+VALUES
+    (1, 'Krishna', 30, 'A'),
+    (2, 'Rahul', 22, 'B'),
+    (3, 'Manish', 26, 'B'),
+    (4, 'Nipun', 28, 'C'),
+    (5, 'Shubham', 30, 'A');
+
+-- Retrieve all records from the students table
+SELECT * FROM students;
+
+-- Retrieve only Name and Age columns
+SELECT Name, Age FROM students;
+=====================================================================================================
+
+=============== Filtering Data with WHERE ===========================================================
+
+-- Filtered queries using WHERE clause
+-- Students younger than 30
+SELECT * FROM students WHERE Age < 30;
+
+-- Students whose Grade is 'A'
+SELECT Name, Grade FROM students WHERE Grade = 'A';
+
+-- Using Logical Operators
+-- Age < 30 AND Grade = 'B'
+SELECT Name, Grade FROM students WHERE Age < 30 AND Grade = 'B';
+
+-- Age > 28 OR Grade = 'C'
+SELECT Name, Grade FROM students WHERE Age > 28 OR Grade = 'C';
+
+-- NOT operator: Students where Age is NOT greater than 25
+SELECT * FROM students WHERE NOT Age > 25;
+======================================================================================================
+
+======================================Pattern Matching Operators=======================================
+-- Pattern matching with LIKE operator
+-- Names starting with 'K'
+SELECT * FROM students WHERE Name LIKE 'K%';
+
+-- Names ending with 'a'
+SELECT * FROM students WHERE Name LIKE '%a';
+
+-- Second letter is 'a'
+SELECT * FROM students WHERE Name LIKE '_a%';
+
+-- Names with exactly five characters
+SELECT * FROM students WHERE Name LIKE '_____';
+
+
+
+
+
+
+
+Group BY & Order BY.
+SQL Functions.
+JOINS.
+Constraints.
+Interview questions.
